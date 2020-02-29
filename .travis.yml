@@ -13,6 +13,7 @@ python:
 
 install:
   - pip install -r dev-requirements.txt
+  - pip install "motor~=2.0.0"
 
 script:
   - export PYTHONDONTWRITEBYTECODE=1  # Hopefully prevents flaky tests
