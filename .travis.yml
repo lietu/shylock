@@ -1,0 +1,45 @@
+# Disable sudo to speed up the build
+sudo: false
+
+dist: trusty
+
+language: python
+
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - "pypy3"
+
+install:
+  - pip install -r dev-requirements.txt
+
+script:
+  - export PYTHONDONTWRITEBYTECODE=1  # Hopefully prevents flaky tests
+  - coverage run --include "shylock/*" -m pytest
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
+      python setup.py sdist bdist_wheel;
+      twine check dist/*;
+      coverage xml -i;
+      mkdir coverage-reports;
+      mv coverage.xml coverage-reports/coverage-python.xml;
+      if which sonar-scanner > /dev/null; then sonar-scanner; fi;
+    fi
+
+deploy:
+  provider: pypi
+  user: "__token__"
+  password: $PYPI_TOKEN
+  skip_existing: true
+  edge: true
+  on:
+    branch: master
+    tags: true
+
+addons:
+  sonarcloud:
+    organization: "lietu"
+    token: $SONAR_TOKEN
+
+after_success:
+  - codecov

@@ -1,0 +1,106 @@
+.. image:: https://travis-ci.org/lietu/shylock.svg?branch=master
+    :target: https://travis-ci.org/lietu/shylock
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
+
+.. image:: https://codecov.io/gh/lietu/shylock/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/lietu/shylock
+
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=lietu_shylock&metric=alert_status
+    :target: https://sonarcloud.io/dashboard?id=lietu_shylock
+
+.. image:: https://img.shields.io/github/issues/lietu/shylock
+    :target: https://github.com/lietu/shylock/issues
+    :alt: GitHub issues
+
+.. image:: https://img.shields.io/pypi/dm/shylock
+    :target: https://pypi.org/project/shylock/
+    :alt: PyPI - Downloads
+
+.. image:: https://img.shields.io/pypi/v/shylock
+    :target: https://pypi.org/project/shylock/
+    :alt: PyPI
+
+.. image:: https://img.shields.io/pypi/pyversions/shylock
+    :target: https://pypi.org/project/shylock/
+    :alt: PyPI - Python Version
+
+.. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+    :target: https://opensource.org/licenses/BSD-3-Clause
+
+Distributed async locks on Python
+
+
+What is this?
+=============
+
+Locks are required when you have a distributed system (like any API) and you want to ensure consistency for your data and prevent race conditions. There are a lot of ways to implement them, and this library aims to provide easy access to some of the better ways.
+
+The library is written purely for use with asyncio code for now.
+
+Supports MongoDB (using unique indexes + ttl indexes for consistency and safety) for now, can be extended for other storage systems pretty easily.
+
+
+License
+-------
+
+Licensing is important. This project itself uses BSD 3-clause license, but e.g. Mongodb Motor library and other such libraries used by it may have their own licenses.
+
+For more information check the `LICENSE <https://github.com/lietu/shylock/blob/master/LICENSE>`_ -file.
+
+
+Getting started
+===============
+
+Add ``shylock`` to your project via pip / pipenv / poetry
+
+.. code-block:: bash
+
+    pip install shylock[motor]
+
+For most easy usage, you should in your application startup logic configure the default backend for Shylock to use, and then use the ``Lock`` class to handle your locking needs.
+
+.. code-block:: python
+
+    from motor.motor_asyncio import AsyncIOMotorClient
+
+    from shylock import configure, Lock, ShylockMotorAsyncIOBackend
+
+    CONNECTION_STRING = "mongodb://your-connection-string"
+
+    client = AsyncIOMotorClient(CONNECTION_STRING)
+    configure(ShylockMotorAsyncIOBackend(client, "projectdb"))
+
+    async def use_lock():
+        with Lock("my-lock"):
+            # The lock is now acquired, and will be automatically released
+            do_something()
+
+    async def another_lock_use():
+        lock = Lock("my-lock")
+        try:
+            lock.acquire()
+            do_something()
+        finally:
+             lock.release()
+
+    async def time_sensitive_code():
+        lock = Lock("my-lock")
+        try:
+            locked = lock.acquire(block=False)
+            if locked:
+                do_something()
+        finally:
+             if locked:
+                 lock.release()
+
+You can also check out the `example <https://github.com/lietu/shylock/tree/master/example.py>`_.
+
+
+Contributing
+============
+
+This project is run on GitHub using the issue tracking and pull requests here. If you want to contribute, feel free to `submit issues <https://github.com/lietu/shylock/issues>`_ (incl. feature requests) or PRs here.
+
+To test changes locally ``python setup.py develop`` is a good way to run this, and you can ``python setup.py develop --uninstall`` afterwards (you might want to also use the ``--user`` flag).
