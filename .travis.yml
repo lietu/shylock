@@ -1,12 +1,15 @@
 # Disable sudo to speed up the build
 sudo: false
 
-dist: trusty
+dist: bionic
 
 language: python
 
 python:
   - "3.6"
+  - "3.7"
+  - "3.8"
+  - "pypy3"
 
 install:
   - pip install -r dev-requirements.txt
