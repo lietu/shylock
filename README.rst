@@ -29,7 +29,7 @@
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :target: https://opensource.org/licenses/BSD-3-Clause
 
-Distributed async locks on Python
+Distributed locks on Python, with asyncio support
 
 
 What is this?
@@ -37,7 +37,7 @@ What is this?
 
 Locks are required when you have a distributed system (like any API) and you want to ensure consistency for your data and prevent race conditions. There are a lot of ways to implement them, and this library aims to provide easy access to some of the better ways.
 
-The library is written purely for use with asyncio code for now.
+The library is written primarily for use with asyncio code, but also supports normal synchronous usage.
 
 Supports MongoDB (using unique indexes + ttl indexes for consistency and safety) for now, can be extended for other storage systems pretty easily.
 
@@ -57,27 +57,66 @@ Add ``shylock`` to your project via pip / pipenv / poetry
 
 .. code-block:: bash
 
+    # asyncio
     pip install shylock[motor]
+    # or
+    pip install shylock[pymongo]
 
-For most easy usage, you should in your application startup logic configure the default backend for Shylock to use, and then use the ``Lock`` class to handle your locking needs.
+For most easy usage, you should in your application startup logic configure the default backend for Shylock to use, and then use the ``AsyncLock`` class to handle your locking needs.
 
 .. code-block:: python
 
     from motor.motor_asyncio import AsyncIOMotorClient
 
-    from shylock import configure, Lock, ShylockMotorAsyncIOBackend
+    from shylock import configure, AsyncLock as Lock, ShylockMotorAsyncIOBackend
 
     CONNECTION_STRING = "mongodb://your-connection-string"
 
     client = AsyncIOMotorClient(CONNECTION_STRING)
-    configure(ShylockMotorAsyncIOBackend(client, "projectdb"))
+    configure(await ShylockMotorAsyncIOBackend.create(client, "projectdb"))
 
     async def use_lock():
-        with Lock("my-lock"):
+        async with Lock("my-lock"):
             # The lock is now acquired, and will be automatically released
             do_something()
 
     async def another_lock_use():
+        lock = Lock("my-lock")
+        try:
+            await lock.acquire()
+            do_something()
+        finally:
+             await lock.release()
+
+    async def time_sensitive_code():
+        lock = Lock("my-lock")
+        try:
+            locked = await lock.acquire(block=False)
+            if locked:
+                do_something()
+        finally:
+             if locked:
+                 await lock.release()
+
+Or the ``Lock`` class for code where ``asyncio`` support isn't required
+
+.. code-block:: python
+
+    from pymongo import MongoClient
+
+    from shylock import configure, Lock, ShylockPymongoBackend
+
+    CONNECTION_STRING = "mongodb://your-connection-string"
+
+    client = MongoClient(CONNECTION_STRING)
+    configure(ShylockPymongoBackend.create(client, "projectdb"))
+
+    def use_lock():
+        with Lock("my-lock"):
+            # The lock is now acquired, and will be automatically released
+            do_something()
+
+    def another_lock_use():
         lock = Lock("my-lock")
         try:
             lock.acquire()
@@ -85,7 +124,7 @@ For most easy usage, you should in your application startup logic configure the 
         finally:
              lock.release()
 
-    async def time_sensitive_code():
+    def time_sensitive_code():
         lock = Lock("my-lock")
         try:
             locked = lock.acquire(block=False)
@@ -95,7 +134,7 @@ For most easy usage, you should in your application startup logic configure the 
              if locked:
                  lock.release()
 
-You can also check out the `example <https://github.com/lietu/shylock/tree/master/example.py>`_.
+You can also check out the `examples <https://github.com/lietu/shylock/tree/master/examples/>`_.
 
 
 Contributing

@@ -2,8 +2,7 @@ import asyncio
 from time import time
 
 from motor.motor_asyncio import AsyncIOMotorClient
-
-from shylock import configure, Lock, ShylockMotorAsyncIOBackend
+from shylock import configure, AsyncLock as Lock, ShylockMotorAsyncIOBackend
 
 CONNECTION_STRING = "mongodb://your-connection-string"
 
@@ -28,11 +27,11 @@ async def main():
     assert await test_lock.acquire(False)
     await test_lock.release()
 
-    locks = [f"test-lock-a{i}" for i in range(10)]
+    locks = [f"test-lock-a{i}" for i in range(3)]
 
     async def _wait(lock_name: str):
         start = time()
-        print(f"Waiting for release of {lock_name}")
+        print(f"Waiting for release of {lock_name}, this might take a while.")
         async with Lock(lock_name):
             elapsed = time() - start
             print(f"Release of {lock_name} took {elapsed:.3f}s")
