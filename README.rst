@@ -39,8 +39,12 @@ Locks are required when you have a distributed system (like any API) and you wan
 
 The library is written primarily for use with asyncio code, but also supports normal synchronous usage.
 
-Supports MongoDB (using unique indexes + ttl indexes for consistency and safety) for now, can be extended for other storage systems pretty easily.
+Currently supported backends:
 
+- MongoDB (using unique indexes + ttl indexes for consistency and safety)
+- ArangoDB (using unique indexes + ttl indexes for consistency and safety), only supports synchronous usage
+
+Can be extended for other storage systems pretty easily.
 
 License
 -------
