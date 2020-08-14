@@ -28,7 +28,7 @@ class Lock:
         self._locked = False
         if self._backend is None:
             raise ShylockException(
-                f"No Shylock backend set, configure one with shylock.set_default, "
+                f"No Shylock backend set, configure one with shylock.configure, "
                 f"or pass instace of shylock.ShylockBackend as argument to Lock()"
             )
 
