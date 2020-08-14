@@ -137,7 +137,7 @@ class ShylockMotorAsyncIOBackend(ShylockAsyncBackend):
         """
         delay = None
         if e.code == 16500:  # Azure CosmosDB rate limiting
-            delay = default_retry_time  # Delete does nto get a RetryAfterMs
+            delay = default_retry_time  # Delete does not get a RetryAfterMs
             msg = e.details.get("errmsg", "")
             for part in msg.replace(",", "").split(" "):
                 if part.startswith("RetryAfterMs="):

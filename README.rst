@@ -42,7 +42,7 @@ The library is written primarily for use with asyncio code, but also supports no
 Currently supported backends:
 
 - MongoDB (using unique indexes + ttl indexes for consistency and safety)
-- ArangoDB (using unique indexes + ttl indexes for consistency and safety), only supports synchronous usage
+- ArangoDB (using unique indexes + ttl indexes for consistency and safety)
 
 Can be extended for other storage systems pretty easily.
 
