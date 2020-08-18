@@ -20,7 +20,12 @@ setup(
     packages=["shylock", "shylock.backends", "shylock.aio"],
     keywords="distributed locking lock asyncio",
     python_requires=">=3.6,<4",
-    extras_require={"motor": ["motor~=2.0.0"], "pymongo": ["pymongo~=3.10.1"],},
+    extras_require={
+        "aioarangodb": ["aioarangodb~=0.1.2"],
+        "motor": ["motor~=2.0.0"],
+        "pymongo": ["pymongo~=3.10.1"],
+        "python-arango": ["python-arango~=5.4.0"],
+    },
     classifiers=[
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3",

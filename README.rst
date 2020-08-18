@@ -61,10 +61,14 @@ Add ``shylock`` to your project via pip / pipenv / poetry
 
 .. code-block:: bash
 
-    # asyncio
+    # MongoDB asyncio
     pip install shylock[motor]
-    # or
+    # MongoDB
     pip install shylock[pymongo]
+    # ArangoDB asyncio
+    pip install shylock[aioarangodb]
+    # ArangoDB
+    pip install shylock[python-arango]
 
 For most easy usage, you should in your application startup logic configure the default backend for Shylock to use, and then use the ``AsyncLock`` class to handle your locking needs.
 
@@ -138,7 +142,7 @@ Or the ``Lock`` class for code where ``asyncio`` support isn't required
              if locked:
                  lock.release()
 
-You can also check out the `examples <https://github.com/lietu/shylock/tree/master/examples/>`_.
+You can also check out the `examples <https://github.com/lietu/shylock/tree/master/examples/>`_, which also show how to use Shylock with ArangoDB.
 
 
 Contributing
