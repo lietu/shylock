@@ -1,4 +1,5 @@
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flietu%2Fshylock.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flietu%2Fshylock?ref=badge_shield)
+.. image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Flietu%2Fshylock.svg?type=shield
+    :target: https://app.fossa.io/projects/git%2Bgithub.com%2Flietu%2Fshylock?ref=badge_shield
 
 .. image:: https://travis-ci.org/lietu/shylock.svg?branch=master
     :target: https://travis-ci.org/lietu/shylock
@@ -146,5 +147,5 @@ This project is run on GitHub using the issue tracking and pull requests here. I
 
 To test changes locally ``python setup.py develop`` is a good way to run this, and you can ``python setup.py develop --uninstall`` afterwards (you might want to also use the ``--user`` flag).
 
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flietu%2Fshylock.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flietu%2Fshylock?ref=badge_large)
+.. image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Flietu%2Fshylock.svg?type=large
+    :target: https://app.fossa.io/projects/git%2Bgithub.com%2Flietu%2Fshylock?ref=badge_shield
