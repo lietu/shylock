@@ -1,3 +1,6 @@
+.. image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Flietu%2Fshylock.svg?type=shield
+    :target: https://app.fossa.io/projects/git%2Bgithub.com%2Flietu%2Fshylock?ref=badge_shield
+
 .. image:: https://travis-ci.org/lietu/shylock.svg?branch=master
     :target: https://travis-ci.org/lietu/shylock
 
@@ -151,3 +154,6 @@ Contributing
 This project is run on GitHub using the issue tracking and pull requests here. If you want to contribute, feel free to `submit issues <https://github.com/lietu/shylock/issues>`_ (incl. feature requests) or PRs here.
 
 To test changes locally ``python setup.py develop`` is a good way to run this, and you can ``python setup.py develop --uninstall`` afterwards (you might want to also use the ``--user`` flag).
+
+.. image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Flietu%2Fshylock.svg?type=large
+    :target: https://app.fossa.io/projects/git%2Bgithub.com%2Flietu%2Fshylock?ref=badge_shield
