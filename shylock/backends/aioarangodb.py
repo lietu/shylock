@@ -16,6 +16,7 @@ from shylock.exceptions import ShylockException
 DOCUMENT_TTL = 60 * 5  # 5min seems like a reasonable TTL
 POLL_DELAY = 1 / 16  # Some balance between high polling and high delay
 
+ERROR_ARANGO_CONFLICT = 1200
 ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED = 1210
 
 
@@ -24,7 +25,7 @@ class ShylockAioArangoDBBackend(ShylockAsyncBackend):
     async def create(
         db: StandardDatabase, collection_name: str = "shylock"
     ) -> "ShylockAioArangoDBBackend":
-        """"
+        """
         Create and initialize the backend
         :param db: An instance of aioarangodb.database.StandardDatabase connected to the desired database
         :param collection_name: The name of the collection reserved for shylock
@@ -57,7 +58,10 @@ class ShylockAioArangoDBBackend(ShylockAsyncBackend):
                 )
                 return True
             except ArangoServerError as err:
-                if err.error_code == ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED:
+                if err.error_code in {
+                    ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED,
+                    ERROR_ARANGO_CONFLICT,
+                }:
                     if not block:
                         return False
                     await sleep(POLL_DELAY)
