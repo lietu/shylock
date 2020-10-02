@@ -10,7 +10,7 @@ with open(path.join(here, "README.rst"), encoding="utf-8") as f:
 
 setup(
     name="shylock",
-    version="1.1.0",
+    version="1.1.1",
     description="Distributed locks in Python, similar to https://github.com/vaidik/sherlock - also with asyncio support",
     long_description=long_description,
     long_description_content_type="text/x-rst",
