@@ -157,3 +157,13 @@ To test changes locally ``python setup.py develop`` is a good way to run this, a
 
 .. image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Flietu%2Fshylock.svg?type=large
     :target: https://app.fossa.io/projects/git%2Bgithub.com%2Flietu%2Fshylock?ref=badge_shield
+
+
+Financial support
+=================
+
+This project has been made possible thanks to `Cocreators <https://cocreators.ee>`_ and `Lietu <https://lietu.net>`_. You can help us continue our open source work by supporting us on `Buy me a coffee <https://www.buymeacoffee.com/cocreators>`_.
+
+.. image:: https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png
+   :target: https://www.buymeacoffee.com/cocreators
+
