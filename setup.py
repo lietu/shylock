@@ -22,7 +22,7 @@ setup(
     python_requires=">=3.6,<4",
     extras_require={
         "aioarangodb": ["aioarangodb~=0.1.2"],
-        "motor": ["motor~=2.0.0"],
+        "motor": ["motor>=2.0.0,<3"],
         "pymongo": ["pymongo~=3.10.1"],
         "python-arango": ["python-arango~=5.4.0"],
     },
