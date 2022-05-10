@@ -25,6 +25,7 @@ setup(
         "motor": ["motor>=2.0.0,<3"],
         "pymongo": ["pymongo~=3.10.1"],
         "python-arango": ["python-arango~=5.4.0"],
+        "pymemcache": ["pymemcache~=3.5.2"],
     },
     classifiers=[
         "License :: OSI Approved :: BSD License",
