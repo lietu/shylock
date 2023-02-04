@@ -37,7 +37,6 @@ jobs:
       - name: Run tests 🌈
         run: |
           export PYTHONDONTWRITEBYTECODE=1  # Hopefully prevents flaky tests
-          coverage run --include "shylock/*" -m pytest
           poetry run pytest
 
       - name: Publish package to PyPI 🙌
