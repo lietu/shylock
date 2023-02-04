@@ -29,6 +29,11 @@ jobs:
       - name: Run pre-commit 🤔
         run: pre-commit run --all-files
 
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@538a4d2a1041920c47630172445cb688592d6e51  # 1.8.0
+        with:
+          mongodb-version: 6.0
+
       - name: Run tests 🌈
         run: |
           export PYTHONDONTWRITEBYTECODE=1  # Hopefully prevents flaky tests
