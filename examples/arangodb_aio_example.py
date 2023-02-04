@@ -2,7 +2,9 @@ import asyncio
 from time import time
 
 from aioarangodb import ArangoClient
-from shylock import configure, AsyncLock as Lock, ShylockAioArangoDBBackend
+
+from shylock import AsyncLock as Lock
+from shylock import ShylockAioArangoDBBackend, configure
 
 HOSTS = "http://localhost:8529"
 USERNAME = "root"

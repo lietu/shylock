@@ -1,9 +1,11 @@
 from time import time
 
 from pymongo import MongoClient
-from shylock import configure, Lock, ShylockPymongoBackend
 
-CONNECTION_STRING = "mongodb://your-connection-string"
+from shylock import Lock, ShylockPymongoBackend, configure
+from shylock.backends.pymongo import DOCUMENT_TTL
+
+CONNECTION_STRING = "mongodb://localhost:27017"
 
 
 def main():
@@ -26,7 +28,9 @@ def main():
     assert test_lock.acquire(False)
     test_lock.release()
 
-    print("Testing automatic release, this might take a while.")
+    print(
+        f"Testing automatic release, this will take a while (~{DOCUMENT_TTL}-{DOCUMENT_TTL+60}s)."
+    )
 
     # Test automatic release
     start = time()

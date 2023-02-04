@@ -1,8 +1,8 @@
 .. image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Flietu%2Fshylock.svg?type=shield
     :target: https://app.fossa.io/projects/git%2Bgithub.com%2Flietu%2Fshylock?ref=badge_shield
 
-.. image:: https://travis-ci.org/lietu/shylock.svg?branch=master
-    :target: https://travis-ci.org/lietu/shylock
+.. image:: https://img.shields.io/github/actions/workflow/status/lietu/shylock/publish.yaml
+    :target: https://github.com/lietu/shylock/actions/workflows/publish.yaml
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
@@ -166,4 +166,3 @@ This project has been made possible thanks to `Cocreators <https://cocreators.ee
 
 .. image:: https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png
    :target: https://www.buymeacoffee.com/cocreators
-

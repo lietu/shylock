@@ -2,8 +2,8 @@ from time import sleep
 from typing import Optional
 
 try:
-    from arango.database import StandardDatabase
     from arango.collection import StandardCollection
+    from arango.database import StandardDatabase
     from arango.exceptions import ArangoServerError
 except ImportError:
     StandardDatabase = None

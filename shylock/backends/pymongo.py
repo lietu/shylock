@@ -1,3 +1,4 @@
+from datetime import datetime
 from time import sleep
 from typing import Optional
 
@@ -25,7 +26,7 @@ class ShylockPymongoBackend(ShylockSyncBackend):
     def create(
         client: MongoClient, db: str, collection_name: str = "shylock"
     ) -> "ShylockPymongoBackend":
-        """"
+        """
         Create and initialize the backend
         :param client: Connected Pymongo client instance
         :param db: The name of the DB to use for locks
@@ -42,7 +43,7 @@ class ShylockPymongoBackend(ShylockSyncBackend):
         :param block: Wait for lock
         :return: If lock was successfully acquired - always True if block is True
         """
-        doc = {"name": name, "ttl": DOCUMENT_TTL}
+        doc = {"name": name, "createdAt": datetime.utcnow()}
 
         while True:
             try:
@@ -101,7 +102,7 @@ class ShylockPymongoBackend(ShylockSyncBackend):
         self._coll = self._db[self._collection_name]
 
         self._init_index("name", unique=True)
-        self._init_index("_ts", expireAfterSeconds=DOCUMENT_TTL)
+        self._init_index("createdAt", expireAfterSeconds=DOCUMENT_TTL)
 
     def _init_index(self, index_name: str, **params):
         """

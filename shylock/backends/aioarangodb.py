@@ -2,8 +2,8 @@ from asyncio import sleep
 from typing import Optional
 
 try:
-    from aioarangodb.database import StandardDatabase
     from aioarangodb.collection import StandardCollection
+    from aioarangodb.database import StandardDatabase
     from aioarangodb.exceptions import ArangoServerError
 except ImportError:
     StandardDatabase = None

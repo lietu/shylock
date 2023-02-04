@@ -1,4 +1,5 @@
 from asyncio import sleep
+from datetime import datetime
 from typing import Optional
 
 try:
@@ -27,7 +28,7 @@ class ShylockMotorAsyncIOBackend(ShylockAsyncBackend):
     async def create(
         client: AsyncIOMotorClient, db: str, collection_name: str = "shylock"
     ) -> "ShylockMotorAsyncIOBackend":
-        """"
+        """
         Create and initialize the backend
         :param client: Connected Motor client instance
         :param db: The name of the DB to use for locks
@@ -44,7 +45,7 @@ class ShylockMotorAsyncIOBackend(ShylockAsyncBackend):
         :param block: Wait for lock
         :return: If lock was successfully acquired - always True if block is True
         """
-        doc = {"name": name, "ttl": DOCUMENT_TTL}
+        doc = {"name": name, "createdAt": datetime.utcnow()}
 
         while True:
             try:
@@ -105,7 +106,7 @@ class ShylockMotorAsyncIOBackend(ShylockAsyncBackend):
         self._coll = self._db[self._collection_name]
 
         await self._init_index("name", unique=True)
-        await self._init_index("_ts", expireAfterSeconds=DOCUMENT_TTL)
+        await self._init_index("createdAt", expireAfterSeconds=DOCUMENT_TTL)
 
     async def _init_index(self, index_name: str, **params):
         """

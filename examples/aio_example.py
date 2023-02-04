@@ -2,9 +2,12 @@ import asyncio
 from time import time
 
 from motor.motor_asyncio import AsyncIOMotorClient
-from shylock import configure, AsyncLock as Lock, ShylockMotorAsyncIOBackend
 
-CONNECTION_STRING = "mongodb://your-connection-string"
+from shylock import AsyncLock as Lock
+from shylock import ShylockMotorAsyncIOBackend, configure
+from shylock.backends.motorasyncio import DOCUMENT_TTL
+
+CONNECTION_STRING = "mongodb://localhost:27017"
 
 
 async def main():
@@ -31,7 +34,9 @@ async def main():
 
     async def _wait(lock_name: str):
         start = time()
-        print(f"Waiting for release of {lock_name}, this might take a while.")
+        print(
+            f"Waiting for automatic release of {lock_name}, this will take a while (~{DOCUMENT_TTL}-{DOCUMENT_TTL+60}s)."
+        )
         async with Lock(lock_name):
             elapsed = time() - start
             print(f"Release of {lock_name} took {elapsed:.3f}s")

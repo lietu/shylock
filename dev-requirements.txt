@@ -1,4 +1,0 @@
-codecov~=2.0.15
-pytest~=4.6.5
-twine>=1.15.0
-wheel~=0.33.6

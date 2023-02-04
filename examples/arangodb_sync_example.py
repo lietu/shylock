@@ -1,7 +1,8 @@
 from time import time
 
 from arango import ArangoClient
-from shylock import configure, Lock, ShylockPythonArangoBackend
+
+from shylock import Lock, ShylockPythonArangoBackend, configure
 
 HOSTS = "http://localhost:8529"
 USERNAME = "root"
