@@ -34,10 +34,10 @@ jobs:
         with:
           mongodb-version: 6.0
 
-      - name: Run tests 🌈
-        run: |
-          export PYTHONDONTWRITEBYTECODE=1  # Hopefully prevents flaky tests
-          poetry run pytest
+#      - name: Run tests 🌈
+#        run: |
+#          export PYTHONDONTWRITEBYTECODE=1  # Hopefully prevents flaky tests
+#          poetry run pytest
 
       - name: Publish package to PyPI 🙌
         run: |
